@@ -11,8 +11,16 @@
  * @returns {Number}
  */
 export const sumMultiples = (arr) => {
-	if (arr === undefined) throw new Error('arr is required');
-};
+    if (arr === undefined) throw new Error('arr is required')
+    //
+    let totalSum = 0
+    arr.reduce((acc, currentVal) => {
+        if (currentVal % 3 === 0 || currentVal % 5 === 0) {
+            totalSum += currentVal
+        }
+    }, totalSum)
+    return totalSum
+}
 
 /**
  * This function will receive a string of characters and should return true/false depending on whether it is a valid DNA string. A valid DNA string may contain characters C, G, T or A only.
@@ -20,8 +28,8 @@ export const sumMultiples = (arr) => {
  * @returns {Boolean}
  */
 export const isValidDNA = (str) => {
-	if (str === undefined) throw new Error('str is required');
-};
+    if (str === undefined) throw new Error('str is required')
+}
 
 /**
  * This function will receive a valid DNA string (see above) and should return a string of the complementary base pairs. In DNA, T always pairs with A, and C always pairs with G. So a string of "ACTG" would have a complementary DNA string of "TGAC".
@@ -29,8 +37,8 @@ export const isValidDNA = (str) => {
  * @returns {String}
  */
 export const getComplementaryDNA = (str) => {
-	if (str === undefined) throw new Error('str is required');
-};
+    if (str === undefined) throw new Error('str is required')
+}
 
 /**
  * This function should receive a number and return true/false depending on whether it is a prime number or not. A prime number is a number that can only be divided evenly by 1 and itself (for example, 7)
@@ -38,8 +46,16 @@ export const getComplementaryDNA = (str) => {
  * @returns {Boolean}
  */
 export const isItPrime = (n) => {
-	if (n === undefined) throw new Error('n is required');
-};
+    if (n === undefined) throw new Error('n is required')
+    let flag = true
+    for (let i = 2; i <= n - 1; i++) {
+        if (n % i === 0) {
+            flag = false
+            break
+        }
+    }
+    return flag
+}
 
 /**
  * This function should receive a number and return an array of n arrays, each filled with n items. The parameter "fill" should be used as the filler of the arrays. For example, given parameters 3 and "foo" the resulting matrix should be:
@@ -53,9 +69,9 @@ export const isItPrime = (n) => {
  * @returns {Array}
  */
 export const createMatrix = (n, fill) => {
-	if (n === undefined) throw new Error('n is required');
-	if (fill === undefined) throw new Error('fill is required');
-};
+    if (n === undefined) throw new Error('n is required')
+    if (fill === undefined) throw new Error('fill is required')
+}
 
 /**
  * This function takes an array of staff objects in the format:
@@ -69,7 +85,28 @@ export const createMatrix = (n, fill) => {
  * @param {String} day
  * @returns {Boolean}
  */
-export const areWeCovered = (staff, day) => {
-	if (staff === undefined) throw new Error('staff is required');
-	if (day === undefined) throw new Error('day is required');
-};
+export const areWeCovered = (staff, dayOfWeek) => {
+    if (staff === undefined) throw new Error('staff is required')
+    if (dayOfWeek === undefined) throw new Error('day is required')
+
+    let noOfstaffPerDay = []
+    staff.forEach((employee) => {
+        employee.rota.reduce((acc, currentVal) => {
+            let index = noOfstaffPerDay.findIndex(
+                (day) => day.weekday.toLowerCase() === currentVal.toLowerCase()
+            )
+            index > -1
+                ? (noOfstaffPerDay[index].qty += 1)
+                : noOfstaffPerDay.push({
+                      weekday: currentVal.toLowerCase(),
+                      qty: 1,
+                  })
+        }, 0)
+    })
+
+    const pos = noOfstaffPerDay.findIndex(
+        (day) => day.weekday === dayOfWeek.toLowerCase()
+    )
+
+    return noOfstaffPerDay[pos].qty > 2
+}
