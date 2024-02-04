@@ -29,6 +29,16 @@ export const sumMultiples = (arr) => {
  */
 export const isValidDNA = (str) => {
     if (str === undefined) throw new Error('str is required')
+    let result = true
+    const dnaStr = 'CGTA'
+    const strArr = str.split('')
+    for (let letter of strArr) {
+        result = dnaStr.toLocaleLowerCase().includes(letter.toLocaleLowerCase())
+            ? true
+            : false
+        if (!result) break
+    }
+    return result
 }
 
 /**
@@ -38,6 +48,20 @@ export const isValidDNA = (str) => {
  */
 export const getComplementaryDNA = (str) => {
     if (str === undefined) throw new Error('str is required')
+    let dnaKeyValue = {
+        A: 'T',
+        T: 'A',
+        C: 'G',
+        G: 'C',
+    }
+    let complimentaryDna = ''
+
+    for (let i = 0; i < str.length; i++) {
+        console.log(complimentaryDna)
+        complimentaryDna += dnaKeyValue[str[i]]
+    }
+    console.log(complimentaryDna)
+    return complimentaryDna
 }
 
 /**
@@ -71,6 +95,12 @@ export const isItPrime = (n) => {
 export const createMatrix = (n, fill) => {
     if (n === undefined) throw new Error('n is required')
     if (fill === undefined) throw new Error('fill is required')
+    const matrix = Array(n)
+        .fill()
+        .map(() => Array(n).fill(fill))
+
+    console.log(matrix)
+    return matrix
 }
 
 /**

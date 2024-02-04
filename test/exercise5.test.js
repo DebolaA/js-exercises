@@ -20,19 +20,15 @@ describe('sumMultiples', () => {
 describe('isValidDNA', () => {
     test('return true/false depending on whether it is a valid DNA string - A valid DNA string may contain characters C, G, T or A only', () => {
         //should not be case sensitive
-        expect(isValidDNA('I reached my goal')).toBe(false)
-        expect(isValidDNA('Trick or treat')).toBe(false)
+        expect(isValidDNA('ATGCTTCAGAAAGGTCttacy')).toBe(false)
+        expect(isValidDNA('ATGCTTCAGAAAGGTCtbacg')).toBe(false)
         expect(isValidDNA('ATGCTTCAGAAAGGTCttacg')).toBe(true)
     })
 })
 
 describe('getComplementaryDNA', () => {
-    test('returns ', () => {
-        expect(getComplementaryDNA([5, 3, 7, 8, 1, 10], 7)).toBe(8)
-        expect(getComplementaryDNA([5, 3, 7, 8, 1, 10], 1)).toBe(10)
-        expect(getComplementaryDNA([4, 22, 654, 123, 65, 23, 40, 1], 22)).toBe(
-            654
-        )
+    test('return a string of the complementary base pairs', () => {
+        expect(getComplementaryDNA('ACTG')).toBe('TGAC')
     })
 })
 
@@ -46,10 +42,20 @@ describe('isItPrime', () => {
 })
 
 describe('createMatrix', () => {
-    test('returns ', () => {
-        expect(createMatrix([5, 3, 7, 8, 1, 10], 7)).toBe(8)
-        expect(createMatrix([5, 3, 7, 8, 1, 10], 1)).toBe(10)
-        expect(createMatrix([4, 22, 654, 123, 65, 23, 40, 1], 22)).toBe(654)
+    const arr1 = [
+        ['step', 'step', 'step'],
+        ['step', 'step', 'step'],
+        ['step', 'step', 'step'],
+    ]
+    const arr2 = [['step']]
+    const arr3 = [
+        ['step', 'step'],
+        ['step', 'step'],
+    ]
+    test('return an array of n arrays, each filled with n items', () => {
+        expect(createMatrix(3, 'step')).toStrictEqual(arr1)
+        expect(createMatrix(1, 'step')).toStrictEqual(arr2)
+        expect(createMatrix(2, 'step')).toStrictEqual(arr3)
     })
 })
 
